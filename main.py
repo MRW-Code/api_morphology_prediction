@@ -1,3 +1,5 @@
+import os
+os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 from src.utils import args
 from src.preprocess import get_ml_df, get_lab_data
 from src.images import images_from_dataset
@@ -55,9 +57,13 @@ elif args.dset == 'image':
 
     path = './data/images'
     fnames = get_image_files(path)
-    def label_func(x) : return x.parent_name
-    dls = ImageDataLoaders.from_path_func(path, fnames, label_func)
-    learner = cnn_learner(dls, resnet18, pretrained=True)
+    def label_func(x) : return x.parent
+    tfms = aug_transforms(pad_mode='zeros', mult=2, batch=True)
+    dls = ImageDataLoaders.from_path_func(path, fnames, label_func, bs=64, batch_tfms=tfms, seed=0)
+    learn = cnn_learner(dls, resnet18, pretrained=True, metrics=[accuracy])
+    learn.fit(5)
+    learn.unfreeze()
+    learn.fit(10)
 
 
 
