@@ -57,6 +57,7 @@ elif args.dset == 'image':
     fnames = get_image_files(path)
     def label_func(x) : return x.parent_name
     dls = ImageDataLoaders.from_path_func(path, fnames, label_func)
-    learner =
+    learner = cnn_learner(dls, resnet18, pretrained=True)
+
 
 
