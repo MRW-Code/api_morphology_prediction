@@ -1,11 +1,12 @@
 from src.utils import args
-from src.preprocess import get_ml_df
-from models.models import *
+from src.preprocess import get_ml_df, get_lab_data
+from src.images import images_from_dataset
 from sklearn.model_selection import StratifiedKFold, train_test_split, cross_val_score
 from sklearn.inspection import permutation_importance
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
+from fastai.vision.all import *
 
 if __name__ == '__main__':
     print(args)
@@ -43,6 +44,19 @@ if args.dset == 'descriptor':
         fig.tight_layout()
         plt.show()
 
-elif args.dset == 'images':
+elif args.dset == 'image':
     print('Using Image Dataset')
-    
+    df = get_lab_data()
+    if args.load_data:
+        print('Images loaded from folder')
+    else:
+        images_from_dataset(df)
+        print('Images generated and saved to file')
+
+    path = './data/images'
+    fnames = get_image_files(path)
+    def label_func(x) : return x.parent_name
+    dls = ImageDataLoaders.from_path_func(path, fnames, label_func)
+    learner =
+
+

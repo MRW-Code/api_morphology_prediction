@@ -9,7 +9,7 @@ def get_lab_data():
         path = './data/summer_hts_data.csv'
     else:
         raise AttributeError('dataset does not exist')
-    lab_df = pd.read_csv(path, index_col=0)
+    lab_df = pd.read_csv(path, index_col=0).reset_index().drop('index', axis=1)
     return lab_df
 
 def get_ml_df():
