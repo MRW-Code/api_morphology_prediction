@@ -3,9 +3,9 @@ from src.utils import args
 from src.descriptors import get_desc_set
 
 def get_lab_data():
-    if args.dataset == 'matt':
+    if args.user == 'matt':
         path = './data/summer_hts_data_matt.csv'
-    elif args.dataset == 'laura':
+    elif args.user == 'laura':
         path = './data/summer_hts_data.csv'
     else:
         raise AttributeError('dataset does not exist')

@@ -9,11 +9,12 @@ import pandas as pd
 
 if __name__ == '__main__':
     print(args)
+
+if args.dset == 'descriptor':
+    print('Using Descriptor Dataset')
     df = get_ml_df()
     import models.models
     model = getattr(models.models, args.model)
-
-if not args.is_deep:
     labels = np.array(df.loc[:, ['eye_morphology']]).reshape(-1)
     features = df[df.columns[~df.columns.isin(['SMILES', 'eye_morphology'])]]
 
@@ -42,5 +43,6 @@ if not args.is_deep:
         fig.tight_layout()
         plt.show()
 
-else:
+elif args.dset == 'images':
+    print('Using Image Dataset')
     
