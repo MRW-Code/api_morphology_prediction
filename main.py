@@ -1,6 +1,6 @@
 from src.utils import args
 from src.preprocess import get_ml_df
-from models.models import Models
+from models.models import *
 from sklearn.model_selection import StratifiedKFold, train_test_split, cross_val_score
 from sklearn.inspection import permutation_importance
 import numpy as np
@@ -10,8 +10,11 @@ import pandas as pd
 if __name__ == '__main__':
     print(args)
     df = get_ml_df()
-    model = getattr(Models, args.model)
-    labels = df.loc[:, ['eye_morphology']]
+    import models.models
+    model = getattr(models.models, args.model)
+
+if not args.is_deep:
+    labels = np.array(df.loc[:, ['eye_morphology']]).reshape(-1)
     features = df[df.columns[~df.columns.isin(['SMILES', 'eye_morphology'])]]
 
     if args.kfold:
@@ -34,8 +37,10 @@ if __name__ == '__main__':
         forest_importances = pd.Series(result.importances_mean, index=features.columns)
         fig, ax = plt.subplots()
         forest_importances.plot.bar(yerr=result.importances_std, ax=ax)
-        ax.set_title("Feature importances using permutation on full model")
+        ax.set_title("Feature importance using permutation on full model")
         ax.set_ylabel("Mean accuracy decrease")
         fig.tight_layout()
         plt.show()
-    print('done')
+
+else:
+    

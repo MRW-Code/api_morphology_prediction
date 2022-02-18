@@ -1,5 +1,10 @@
-from rdkit import Chem
-from mordred import Calculator, descriptors
+try:
+    from rdkit import Chem
+    from mordred import Calculator, descriptors
+except:
+    print('Descriptor packages must be loaded, imports not working')
+    pass
+
 import pandas as pd
 from src.utils import args
 
