@@ -1,7 +1,10 @@
-from rdkit import Chem
-from rdkit.Chem import Draw
+try:
+    from rdkit import Chem
+    from rdkit.Chem import Draw
+except:
+    print('Images packages must be loaded, imports not working')
+    pass
 import pandas as pd
-import tqdm
 
 def images_from_dataset(df):
     for count, api in enumerate(df.api):
