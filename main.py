@@ -8,7 +8,7 @@ from sklearn.inspection import permutation_importance
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
-from fastai.vision.all import *
+# from fastai.vision.all import *
 
 if __name__ == '__main__':
     print(args)
@@ -25,7 +25,7 @@ if args.dset == 'descriptor':
     features = df[df.columns[~df.columns.isin(['SMILES', 'eye_morphology'])]]
 
     if args.kfold:
-        kf = StratifiedKFold(n_splits=10, shuffle=True, random_state=42, )
+        kf = StratifiedKFold(n_splits=20, shuffle=True, random_state=42, )
         score = cross_val_score(model, features, labels, cv=kf, scoring='accuracy')
         print(f'Scores for each fold are: {score}')
         print(f'Average score: {"{:.2f}".format(score.mean())}')

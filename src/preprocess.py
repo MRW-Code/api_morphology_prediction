@@ -17,7 +17,7 @@ def get_lab_data(binary):
     return lab_df
 
 def get_ml_df(binary):
-    lab_data = get_lab_data()
+    lab_data = get_lab_data(binary)
     labels = lab_data.loc[:, ['SMILES', 'eye_morphology']]
     desc = get_desc_set(lab_data.loc[:, 'SMILES'])
     df = pd.merge(labels, desc, left_on='SMILES', right_index=True)
@@ -27,4 +27,4 @@ def get_ml_df(binary):
         df = df[df['eye_morphology'] != 'plate']
     return df
 
-
+## REDUNDANT FUNC IF STATEMENT NEEDS REMOVED
