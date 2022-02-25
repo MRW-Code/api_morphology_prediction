@@ -51,7 +51,7 @@ if args.dset == 'descriptor':
 
 elif args.dset == 'image':
     print('Using Image Dataset')
-    df = get_lab_data()
+    df = get_lab_data(args.binary)
     if args.load_data:
         print('Images loaded from folder')
     else:
