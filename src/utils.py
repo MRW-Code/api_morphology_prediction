@@ -18,4 +18,6 @@ parser.add_argument('--deep', action='store_true', dest='is_deep')
 parser.add_argument('--dset', action='store', dest='dset',
                   default='descriptor', choices=['descriptor', 'image'])
 
+parser.add_argument('--binary', action='store_false', dest='binary')
+
 args = parser.parse_args()

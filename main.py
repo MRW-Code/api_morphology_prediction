@@ -13,7 +13,10 @@ if __name__ == '__main__':
 
 if args.dset == 'descriptor':
     print('Using Descriptor Dataset')
-    df = get_ml_df()
+
+    ## ADD is binary call in utils
+
+    df = get_ml_df(args.binary)
     import models.models
     model = getattr(models.models, args.model)
     labels = np.array(df.loc[:, ['eye_morphology']]).reshape(-1)
